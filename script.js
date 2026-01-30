@@ -1,55 +1,89 @@
 let step = 0;
 
 const messages = [
-  { q: "Even though we are far 🌍", t: "you were never far from my heart ❤️" },
-  { q: "Every single day", t: "I think about how you are feeling, how your day went" },
-  { q: "Yuktha ✨", t: "you changed me in ways I never imagined" },
-  { q: "Since you came into my life", t: "I feel lucky every single day" },
-  { q: "With you", t: "life feels calmer, happier, and meaningful" }
+  {
+    q: "Even though we are in a long-distance relationship 🌍",
+    t: "You were never far from my heart, not even for a second ❤️"
+  },
+  {
+    q: "Every single day 💭",
+    t: "I think about how you’re feeling and hope you smiled today"
+  },
+  {
+    q: "Yuktha ✨",
+    t: "You changed me — the way I love, the way I see life"
+  },
+  {
+    q: "When you came into my life 💫",
+    t: "I started feeling lucky every single day"
+  },
+  {
+    q: "With you ❤️",
+    t: "Life feels calmer, happier, and meaningful"
+  }
 ];
 
 function start() {
   const music = document.getElementById("music");
-  music.volume = 0.6;
-  music.play().catch(()=>{});
+  if (music) {
+    music.volume = 0.6;
+    music.play().catch(() => {});
+  }
   next();
 }
 
 function next() {
+  const question = document.getElementById("question");
+  const text = document.getElementById("text");
+  const buttons = document.querySelector(".buttons");
+
+  if (!question || !text || !buttons) return;
+
   if (step < messages.length) {
-    document.getElementById("question").innerText = "";
-    document.getElementById("text").innerText = "";
+    question.innerHTML = "";
+    text.innerHTML = "";
 
     setTimeout(() => {
-      document.getElementById("question").innerText = messages[step].q;
+      question.innerHTML = messages[step].q;
     }, 1000);
 
     setTimeout(() => {
-      document.getElementById("text").innerText = messages[step].t;
-    }, 2300);
+      text.innerHTML = messages[step].t;
+    }, 2200);
 
-    document.querySelector(".buttons").innerHTML =
-      `<button onclick="next()">Continue 💕</button>`;
-
+    buttons.innerHTML = `<button onclick="next()">Continue 💕</button>`;
     step++;
   } else {
-    proposal();
+    finalProposal();
   }
 }
 
-function proposal() {
-  document.getElementById("question").innerText = "";
-  document.getElementById("text").innerText = "";
+function finalProposal() {
+  const question = document.getElementById("question");
+  const text = document.getElementById("text");
+  const photos = document.getElementById("photos");
+  const buttons = document.querySelector(".buttons");
+
+  question.innerHTML = "";
+  text.innerHTML = "";
 
   setTimeout(() => {
-    document.getElementById("question").innerText = "Yuktha ❤️";
+    question.innerHTML = "Yuktha ❤️";
   }, 1000);
 
   setTimeout(() => {
-    document.getElementById("text").innerText =
-      "Happy Valentine’s Day ❤️\n\nYou are my favorite blessing.\nMy safest place.\nMy forever.\n\nWill you be my Valentine?\nWill you marry me? 💍\n\nForever yours,\nRahul";
-  }, 2600);
+    text.innerHTML = `
+      Happy Valentine’s Day ❤️<br><br>
+      You are my favorite blessing.<br>
+      My safest place.<br>
+      My forever.<br><br>
+      Will you be my Valentine?<br>
+      Will you marry me? 💍<br><br>
+      Forever yours,<br>
+      <b>Rahul</b>
+    `;
+  }, 2500);
 
-  document.getElementById("photos").style.display = "flex";
-  document.querySelector(".buttons").innerHTML = "";
+  if (photos) photos.style.display = "flex";
+  if (buttons) buttons.innerHTML = "";
 }
